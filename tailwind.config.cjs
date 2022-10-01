@@ -4,6 +4,11 @@ module.exports = {
   presets: [],
   darkMode: "media", // or 'class'
   theme: {
+    extend: {
+      gridTemplateRows: {
+        "[auto,auto,1fr]": "auto auto 1fr",
+      },
+    },
     screens: {
       sm: "640px",
       md: "768px",
@@ -962,5 +967,5 @@ module.exports = {
     "active",
     "disabled",
   ],
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };
