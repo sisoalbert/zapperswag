@@ -21,6 +21,8 @@
 */
 import { useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
@@ -85,6 +87,8 @@ function classNames(...classes: string[]) {
 
 export default function Example() {
   const { productId } = useParams();
+  const dispatch = useDispatch();
+
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
@@ -340,7 +344,18 @@ export default function Example() {
               </div>
 
               <button
-                type="submit"
+                onClick={() => {
+                  dispatch(
+                    addToCart({
+                      id: 1,
+                      name: "Basic Tee 6-Pack",
+                      price: "R48",
+                      imageSrc:
+                        "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
+                    })
+                  );
+                }}
+                // type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to bag

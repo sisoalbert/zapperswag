@@ -14,6 +14,8 @@
 */
 
 import { useNavigate, Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
 const products = [
   {
@@ -100,6 +102,7 @@ const products = [
 ];
 
 export default function ProductsList() {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
 
   return (
@@ -129,6 +132,23 @@ export default function ProductsList() {
               <p className="mt-1 text-lg font-medium text-gray-900">
                 {product.price}
               </p>
+              <button
+                onClick={() => {
+                  dispatch(
+                    addToCart({
+                      id: 1,
+                      name: "Basic Tee 6-Pack",
+                      price: "R48",
+                      imageSrc:
+                        "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
+                    })
+                  );
+                }}
+                // type="submit"
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Add to bag
+              </button>
             </a>
           ))}
         </div>
