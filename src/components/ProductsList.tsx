@@ -16,6 +16,8 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
+import { toggle } from "../redux/uiSlice";
+import { uiStateType } from "../types/types";
 
 const products = [
   {
@@ -104,7 +106,7 @@ const products = [
 export default function ProductsList() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-
+  const ui = useSelector((state: uiStateType) => state.ui);
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -112,16 +114,13 @@ export default function ProductsList() {
 
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <a
-              onClick={() => {
-                // navigate(`/details`);
-                navigate(`/${product.id}`);
-              }}
-              key={product.id}
-              href={product.href}
-              className="group"
-            >
-              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+            <a key={product.id} href={product.href} className="group">
+              <div
+                onClick={() => {
+                  navigate(`/${product.id}`);
+                }}
+                className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
+              >
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
@@ -136,11 +135,10 @@ export default function ProductsList() {
                 onClick={() => {
                   dispatch(
                     addToCart({
-                      id: 1,
-                      name: "Basic Tee 6-Pack",
-                      price: "R48",
-                      imageSrc:
-                        "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      imageSrc: product.imageSrc,
                     })
                   );
                 }}
@@ -148,6 +146,14 @@ export default function ProductsList() {
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to bag
+              </button>
+              <button
+                onClick={() => {
+                  dispatch(toggle());
+                }}
+                className="mt-10 flex w-full"
+              >
+                open cart
               </button>
             </a>
           ))}

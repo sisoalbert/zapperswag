@@ -17,9 +17,13 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<ItemType>) => {
       console.log("payload:", action.payload);
+      const { id } = action.payload;
+      console.log("id:", id);
       console.log("state:", state);
 
-      state.cartList.push(action.payload);
+      // const find = state.find((item:number) => item.id === id);
+
+      state.cartList.push({ ...action.payload, quantity: 1 });
     },
 
     // addToCart(state, { payload }) {
@@ -45,13 +49,12 @@ const cartSlice = createSlice({
     //   }
     // },
 
-    // removeItem: (state, action) => {
-    //   //   console.log(state);
-    //   //   console.log(state);
-    //   //   console.log(action);
-    //   const itemId = action.payload;
-    //   return state.filter((item) => item.uid !== itemId);
-    // },
+    removeItem: (state, action) => {
+      console.log(cartList);
+      console.log(action);
+      const itemId = action.payload;
+      return state.filter((item) => item.id !== itemId);
+    },
     // increament(state, { payload }) {
     //   console.log(state);
     //   console.log(payload);
@@ -82,7 +85,8 @@ const cartSlice = createSlice({
 
 export const {
   addToCart,
-  // increament, decrement, clear, removeItem
+  // increament, decrement, clear,
+  removeItem,
 } = cartSlice.actions;
 const cartReducer = cartSlice.reducer;
 

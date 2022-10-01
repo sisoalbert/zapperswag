@@ -1,11 +1,30 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import { Link, Outlet } from "react-router-dom";
+import Cart from "../pages/Cart";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
+import { toggle } from "../redux/uiSlice";
+import { StateType, uiStateType } from "../types/types";
 
 function Nav() {
+  const dispatch = useDispatch();
+  const ui = useSelector((state: uiStateType) => state.ui);
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleCartOpen = () => {
+    dispatch(toggle());
+  };
   return (
     <div>
+      {ui.cartDrawerVisible ? (
+        <>
+          <Cart />
+        </>
+      ) : (
+        <></>
+      )}
       <nav className="bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -35,15 +54,15 @@ function Nav() {
                   >
                     Shop
                   </Link>
-                  <Link
+                  <div
+                    onClick={handleCartOpen}
                     style={{
                       textDecoration: "none",
                     }}
-                    to="/cart"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Cart
-                  </Link>
+                  </div>
 
                   <a
                     href="https://www.zapper.com/"

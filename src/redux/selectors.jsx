@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { cartState, StateType, uiStateType } from "../types/types";
 
 const cartSelector = (state) => state.cart;
 
