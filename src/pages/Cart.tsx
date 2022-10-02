@@ -7,6 +7,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { toggle } from "../redux/uiSlice";
 
 import { removeItem } from "../redux/cartSlice";
+import { cartTotalPriceSelector } from "../redux/selectors";
 
 const products = [
   {
@@ -40,8 +41,9 @@ export default function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state: StateType) => state.cart);
   const ui = useSelector((state: uiStateType) => state.ui);
+  const totalPrice = useSelector(cartTotalPriceSelector);
 
-  console.log("cartItems:", cart.cartList);
+  console.log("cartItems:", cart);
 
   return (
     <Transition.Root show={ui.cartDrawerVisible} as={Fragment}>
@@ -103,7 +105,7 @@ export default function Cart() {
                             role="list"
                             className="-my-6 divide-y divide-gray-200"
                           >
-                            {cart.cartList.map((product: cartState) => (
+                            {cart.map((product: cartState) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -156,7 +158,7 @@ export default function Cart() {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>{totalPrice}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.

@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { cartState, ItemType } from "../types/types";
+import { cartState } from "../types/types";
 
-type initialStateType = {
-  cartList: ItemType[];
-};
-const cartList: ItemType[] = [];
-
-const initialState: initialStateType = {
-  cartList,
-};
+export interface ItemType {
+  id: number;
+  name: string | undefined;
+  price: number;
+  imageSrc?: string | undefined;
+  quantity: number;
+}
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState,
+  initialState: [] as ItemType[],
+
   reducers: {
     addToCart: (state, action: PayloadAction<ItemType>) => {
       console.log("payload:", action.payload);
@@ -21,40 +21,28 @@ const cartSlice = createSlice({
       console.log("id:", id);
       console.log("state:", state);
 
-      // const find = state.find((item:number) => item.id === id);
-
-      state.cartList.push({ ...action.payload, quantity: 1 });
+      const find = state.find((item) => item.id === id);
+      console.log(find);
+      if (find) {
+        return state.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item
+        );
+      } else {
+        state.push({
+          ...action.payload,
+          quantity: 1,
+        });
+      }
     },
 
-    // addToCart(state, { payload }) {
-    //   console.log(state);
-    //   const { uid } = payload;
-    //   console.log(payload);
-    //   const find = state.find((item) => item.uid === uid);
+    removeItem: (state, action: PayloadAction<number>) =>
+      state.filter((item) => item.id !== action.payload),
 
-    //   if (find) {
-    //     return state.map((item) =>
-    //       item.uid === uid
-    //         ? {
-    //             ...item,
-    //             quantity: item.quantity + 1,
-    //           }
-    //         : item
-    //     );
-    //   } else {
-    //     state.push({
-    //       ...payload,
-    //       quantity: 1,
-    //     });
-    //   }
-    // },
-
-    removeItem: (state, action) => {
-      console.log(cartList);
-      console.log(action);
-      const itemId = action.payload;
-      return state.filter((item) => item.id !== itemId);
-    },
     // increament(state, { payload }) {
     //   console.log(state);
     //   console.log(payload);
