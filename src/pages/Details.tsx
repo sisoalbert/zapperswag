@@ -349,7 +349,8 @@ export default function Example() {
                     addToCart({
                       id: 1,
                       name: "Basic Tee 6-Pack",
-                      price: "R48",
+                      price: 48,
+                      quantity: 0,
                       imageSrc:
                         "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
                     })

@@ -123,7 +123,7 @@ export default function Cart() {
                                           {product.name}
                                         </a>
                                       </h3>
-                                      <p className="ml-4">{product.price}</p>
+                                      <p className="ml-4">R{product.price}</p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">
                                       {/* {product.color} */}
@@ -158,7 +158,7 @@ export default function Cart() {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>{totalPrice}</p>
+                        <p>R{totalPrice}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.
@@ -173,7 +173,7 @@ export default function Cart() {
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
-                          or
+                          or {""}
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"

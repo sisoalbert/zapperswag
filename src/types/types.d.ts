@@ -15,6 +15,7 @@ export interface ItemType {
 
 export interface StateType {
   cart: {
+    length: number;
     reduce: arr;
     map: arr;
     id: number;
