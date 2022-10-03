@@ -18,6 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import { toggle } from "../redux/uiSlice";
 import { uiStateType } from "../types/types";
+import { fetchProducts } from "../redux/productsSlice";
+import React, { useState, useEffect } from "react";
+import loadingIcon from "../assets/loader.svg";
 
 const products = [
   {
@@ -107,8 +110,38 @@ export default function ProductsList() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const ui = useSelector((state: uiStateType) => state.ui);
+
+  function MyComponent() {
+    const dispatch = useDispatch();
+    const products = useSelector((state) => state.products);
+
+    console.log("product:", products.loading);
+    console.log("product:", products.list);
+
+    useEffect(() => {
+      dispatch(fetchProducts());
+    }, [dispatch]);
+
+    if (products.loading) {
+      return (
+        <>
+          <div className="loading-container">
+            <div className="loading-icon">
+              <img src={loadingIcon} className="loadingicon" alt="loading" />
+            </div>
+            <div className="loading-text">
+              <h1>Loading...</h1>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  }
   return (
     <div className="bg-white">
+      <MyComponent />
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
 
@@ -131,7 +164,7 @@ export default function ProductsList() {
               <p className="mt-1 text-lg font-medium text-gray-900">
                 R{product.price}
               </p>
-              <button
+              {/* <button
                 onClick={() => {
                   dispatch(
                     addToCart({
@@ -147,15 +180,15 @@ export default function ProductsList() {
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to bag
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 onClick={() => {
                   dispatch(toggle());
                 }}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-sky-600 py-3 px-8 text-base font-medium text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
               >
                 open cart
-              </button>
+              </button> */}
             </a>
           ))}
         </div>
