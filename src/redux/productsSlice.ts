@@ -31,8 +31,8 @@ export const fetchProducts =
       redirect: "follow",
     };
     const response = await fetch(
-      "https://us-east-1.aws.data.mongodb-api.com/app/zapperswag-oifze/endpoint/zapper",
-      requestOptions
+      "https://us-east-1.aws.data.mongodb-api.com/app/zapperswag-oifze/endpoint/zapper"
+      // ,requestOptions
     );
     const data = await response.json();
     dispatch(save(data));
