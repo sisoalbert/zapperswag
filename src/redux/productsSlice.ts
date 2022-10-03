@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import React, { useState, useEffect } from "react";
 
 const initialState = {
   loading: true,
@@ -23,15 +22,21 @@ const productsSlice = createSlice({
 
 export const { startFetch, save } = productsSlice.actions;
 
-export const fetchProducts = () => async (dispatch) => {
-  dispatch(save([]));
-  dispatch(startFetch());
-  const response = await fetch(
-    "https://magneto-backend-production.herokuapp.com/v1/products"
-  );
-  const data = await response.json();
-  dispatch(save(data));
-};
+export const fetchProducts =
+  () => async (dispatch: (arg0: { payload: any; type: string }) => void) => {
+    dispatch(save([]));
+    dispatch(startFetch());
+    const requestOptions = {
+      method: "POST",
+      redirect: "follow",
+    };
+    const response = await fetch(
+      "https://us-east-1.aws.data.mongodb-api.com/app/zapperswag-oifze/endpoint/zapper",
+      requestOptions
+    );
+    const data = await response.json();
+    dispatch(save(data));
+  };
 
 const productsReducer = productsSlice.reducer;
 
