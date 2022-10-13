@@ -108,6 +108,25 @@ export default function ProductsList() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const ui = useSelector((state: uiStateType) => state.ui);
+  const [newProducts, setNewProducts] = useState<string[]>([]);
+
+  const FetchNewProducts = async () => {
+    const requestOptions = {
+      method: "POST",
+      // redirect: "follow"
+    };
+    const response = await fetch(
+      "https://us-east-1.aws.data.mongodb-api.com/app/zapperswag-oifze/endpoint/zapper",
+      requestOptions
+    );
+    const data = await response.json();
+    // dispatch(save(data));
+    setNewProducts(data);
+    console.log("data", data);
+  };
+  useEffect(() => {
+    FetchNewProducts();
+  }, []);
 
   // function MyComponent() {
   // const dispatch = useDispatch();
