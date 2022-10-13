@@ -4,12 +4,14 @@ import { cartState, StateType, uiStateType } from "../types/types";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 import { toggle } from "../redux/uiSlice";
 
 import { removeItem } from "../redux/cartSlice";
 import { cartTotalPriceSelector } from "../redux/selectors";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state: StateType) => state.cart);
   const ui = useSelector((state: uiStateType) => state.ui);
@@ -135,7 +137,13 @@ export default function Cart() {
                       <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.
                       </p>
-                      <div className="mt-6">
+                      <div
+                        className="mt-6"
+                        onClick={() => {
+                          dispatch(toggle());
+                          navigate("/checkout");
+                        }}
+                      >
                         <a
                           href="#"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
