@@ -7,7 +7,7 @@ import { UserForm } from "../components/UserForm";
 type FormData = {
   firstName: string;
   lastName: string;
-  age: string;
+  // age: string;
   street: string;
   city: string;
   state: string;
@@ -19,7 +19,7 @@ type FormData = {
 const INITIAL_DATA: FormData = {
   firstName: "",
   lastName: "",
-  age: "",
+  // age: "",
   street: "",
   city: "",
   state: "",
