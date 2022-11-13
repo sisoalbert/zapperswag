@@ -1,6 +1,9 @@
 import { FormWrapper } from "./FormWrapper";
+import "../styles/AddressForm.css";
+import React from "react";
 
 type AddressData = {
+  pickupLocation: string;
   street: string;
   city: string;
   state: string;
@@ -12,52 +15,153 @@ type AddressFormProps = AddressData & {
 };
 
 export function AddressForm({
+  pickupLocation,
   street,
   city,
   state,
   zip,
   updateFields,
 }: AddressFormProps) {
+  React.useEffect(() => {
+    console.log("====================================");
+    console.log(pickupLocation);
+    console.log("====================================");
+  }, []);
   return (
     <FormWrapper title="Address">
-      <label>Pickup method</label>
-      <select id="country" name="country">
-        <option value="australia">Australia</option>
-        <option value="canada">Canada</option>
-        <option value="usa">USA</option>
-      </select>
-      <label>Street</label>
-      <input
-        autoFocus
-        required
-        type="text"
-        value={street}
-        onChange={(e) => updateFields({ street: e.target.value })}
-      />
-      <label>City</label>
-      <input
-        required
-        type="text"
-        value={city}
-        onChange={(e) => updateFields({ city: e.target.value })}
-      />
-      <label>State</label>
-      <input
-        required
-        type="text"
-        value={state}
-        onChange={(e) => updateFields({ state: e.target.value })}
-      />
-      <label>Zip</label>
-      <input
-        required
-        type="text"
-        value={zip}
-        onChange={(e) => updateFields({ zip: e.target.value })}
-      />
+      <div style={{ flexDirection: "row" }}>
+        <div style={{ flexDirection: "row" }}>
+          <h2>Delivery Method</h2>
+          <select
+            value={pickupLocation}
+            onChange={(e) => updateFields({ pickupLocation: e.target.value })}
+            style={{
+              width: "100%",
+              padding: "12px 20px",
+              margin: "8px 0",
+              display: "inline-block",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              boxSizing: "border-box",
+            }}
+          >
+            {DeliveryMethod.map((data) => (
+              <option value={data.title} key={data.title}>
+                {data.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {pickupLocation == "Pick Up" ? (
+          <div style={{ flexDirection: "row" }}>
+            <h2>Pick Up Location</h2>
+            <select
+              style={{
+                width: "100 %",
+                padding: "12px 20px",
+                margin: "8px 0",
+                display: "inline-block",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                boxSizing: "border-box",
+              }}
+            >
+              {DATA.map((data) => (
+                <option value={data.title} key={data.id}>
+                  {data.title}
+                </option>
+              ))}
+            </select>
+            <div style={{ flexDirection: "row" }}>
+              <label>Pick Up Fee: R{"0"}</label>
+            </div>
+          </div>
+        ) : (
+          <div style={{ flexDirection: "row" }}>
+            <div style={{ flexDirection: "row" }}>
+              <label>Street</label>
+              <input
+                style={{
+                  width: "100%",
+                  padding: "12px 20px",
+                  margin: "8px 0",
+                  display: "inline-block",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  boxSizing: "border-box",
+                }}
+                autoFocus
+                required
+                type="text"
+                value={street}
+                onChange={(e) => updateFields({ street: e.target.value })}
+              />
+            </div>
+            <div style={{ flexDirection: "row" }}>
+              <label>City</label>
+              <input
+                style={{
+                  width: "100%",
+                  padding: "12px 20px",
+                  margin: "8px 0",
+                  display: "inline-block",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  boxSizing: "border-box",
+                }}
+                required
+                type="text"
+                value={city}
+                onChange={(e) => updateFields({ city: e.target.value })}
+              />
+            </div>
+
+            <div style={{ flexDirection: "row" }}>
+              <label>State</label>
+              <input
+                style={{
+                  width: "100%",
+                  padding: "12px 20px",
+                  margin: "8px 0",
+                  display: "inline-block",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  boxSizing: "border-box",
+                }}
+                required
+                type="text"
+                value={state}
+                onChange={(e) => updateFields({ state: e.target.value })}
+              />
+            </div>
+
+            <div style={{ flexDirection: "row" }}>
+              <label>Zip</label>
+              <input
+                style={{
+                  width: "100%",
+                  padding: "12px 20px",
+                  margin: "8px 0",
+                  display: "inline-block",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  boxSizing: "border-box",
+                }}
+                required
+                type="text"
+                value={zip}
+                onChange={(e) => updateFields({ zip: e.target.value })}
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </FormWrapper>
   );
 }
+
+const DeliveryMethod = [{ title: "Pick Up" }, { title: "Delivery" }];
 
 const DATA = [
   {

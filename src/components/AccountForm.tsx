@@ -9,10 +9,27 @@ type AccountFormProps = AccountData & {
 };
 
 export function AccountForm({ password, updateFields }: AccountFormProps) {
+  function sayHello() {
+    alert("You clicked me!");
+  }
   return (
-    <FormWrapper title="Account Creation">
-      <label>Password</label>
-      <input
+    <FormWrapper title="Payment">
+      <div>
+        <button
+          style={{
+            height: 80,
+            width: 200,
+            borderRadius: 20,
+            backgroundColor: "black",
+            color: "white",
+          }}
+          onClick={sayHello}
+        >
+          Pay
+        </button>
+      </div>
+
+      {/* <input
         style={{
           width: "100 %",
           padding: "12px 20px",
@@ -26,7 +43,7 @@ export function AccountForm({ password, updateFields }: AccountFormProps) {
         type="password"
         value={password}
         onChange={(e) => updateFields({ password: e.target.value })}
-      />
+      /> */}
     </FormWrapper>
   );
 }

@@ -1,13 +1,14 @@
 import { FormEvent, useState } from "react";
 import { AccountForm } from "../components/AccountForm";
 import { AddressForm } from "../components/AddressForm";
-import { useMultistepForm } from "../components/useMultistepform";
+import { useMultistepForm } from "../components/useMultistepForm";
 import { UserForm } from "../components/UserForm";
 
 type FormData = {
   firstName: string;
   lastName: string;
   // age: string;
+  pickupLocation: string;
   street: string;
   city: string;
   state: string;
@@ -20,6 +21,7 @@ const INITIAL_DATA: FormData = {
   firstName: "",
   lastName: "",
   // age: "",
+  pickupLocation: "",
   street: "",
   city: "",
   state: "",
@@ -30,6 +32,10 @@ const INITIAL_DATA: FormData = {
 
 function CheckOut() {
   const [data, setData] = useState(INITIAL_DATA);
+
+  console.log("====================================");
+  console.log(data);
+  console.log("====================================");
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
       return { ...prev, ...fields };
